@@ -23,7 +23,7 @@ import frc.lib.PIDGains;
 public final class Constants {
   public static final class OIConstants {
     public static final int kDriverControllerPort = 0;
-    public static final int kPartnerDriverControllerPort = 1;
+    public static final int kpartnerDriverControllerPort = 1;
 
     public static final double kDriveDeadband = 0.05;
     public static final double kTriggerButtonThreshold = 0.5;
@@ -32,7 +32,7 @@ public final class Constants {
   public static final class Arm {
     public static final int kArmCanId = 9;
     public static final boolean kArmInverted = true;
-    public static final int kCurrentLimit = 40;
+    public static final int kCurrentLimit = 60;
 
     public static final double kSoftLimitReverse = -1.15;
     public static final double kSoftLimitForward = 0.0;
@@ -54,19 +54,21 @@ public final class Constants {
         new TrapezoidProfile.Constraints(1.0, 2.0);
 
     public static final double kHomePosition = 0.0;
-    public static final double kScoringPosition = 0.0;
-    public static final double kIntakePosition = -1.17;
+    public static final double kScoringPosition = -1.15;
+    public static final double kIntakePosition = -0.1;
+    public static final double kArmHangPosition = 0.0;
   }
 
   public static final class Intake {
     public static final int kCanId = 10;
-    public static final boolean kMotorInverted = true;
-    public static final int kCurrentLimit = 80;
+    public static final boolean kMotorInverted = true; // check all motors are inverted correctly
+    public static final int kCurrentLimit = 60;
 
     public static final PIDGains kPositionGains = new PIDGains(1.0, 0.0, 0.0);
     public static final double kPositionTolerance = 0.5;
 
-    public static final double kIntakePower = 0.7;
+    public static final double kIntakePower = 0.23;
+    public static final double kreverseIntakePower = -0.23;
 
     public static final double kRetractDistance = -3.5;
 
@@ -77,10 +79,13 @@ public final class Constants {
     public static final int kTopCanId = 12;
     public static final int kBottomCanId = 11;
 
-    public static final int kCurrentLimit = 80;
+    public static final int kCurrentLimit = 60;
 
-    public static final double kTopPower = 0.7;
-    public static final double kBottomPower = 0.8;
+    public static final double kTopPower = 0.9; // Speaker
+    public static final double kBottomPower = 0.95; //
+
+    public static final double kTopAmpPower = .2; // Amp
+    public static final double kBottomAmpPower = .25;
   }
 
   public static final class DriveConstants {
