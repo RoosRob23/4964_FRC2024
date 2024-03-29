@@ -11,8 +11,8 @@ public class LauncherSubsystem extends SubsystemBase {
   private CANSparkMax m_topMotor;
   private CANSparkMax m_bottomMotor;
 
-  private boolean m_launcherRunning;
-  private boolean m_launcherAMPRunning;
+  private double m_topPower;
+  private double m_bottomPower;
 
   /** Creates a new LauncherSubsystem. */
   public LauncherSubsystem() {
@@ -33,8 +33,12 @@ public class LauncherSubsystem extends SubsystemBase {
 
     m_bottomMotor.burnFlash();
 
-    m_launcherRunning = false;
-    m_launcherAMPRunning = false;
+  }
+
+  public void stopLauncher() {
+
+    m_topMotor.set(0);
+    m_bottomMotor.set(0);
   }
 
     /**
@@ -42,64 +46,23 @@ public class LauncherSubsystem extends SubsystemBase {
    *
    * @param _power The power to apply to the motor (from -1.0 to 1.0).
    */
-  public void turnOn(boolean amp) {
-    if (amp) {
-      m_topMotor.set(Constants.Launcher.kTopAmpPower);
-      m_bottomMotor.set(Constants.Launcher.kBottomAmpPower);
+  public void setPowerWithAmp(boolean isAmp) {
+    if (isAmp) {
+      m_topPower = Constants.Launcher.kTopAmpPower;
+      m_bottomPower = Constants.Launcher.kBottomAmpPower;
     } else {
-      m_topMotor.set(Constants.Launcher.kTopPower);
-      m_bottomMotor.set(Constants.Launcher.kBottomPower);
+      m_topPower = Constants.Launcher.kTopPower;
+      m_bottomPower = Constants.Launcher.kBottomPower;
     }
-  }
-
-  /**
-   * Turns the launcher on. Can be run once and the launcher will stay running or run continuously
-   * in a {@code RunCommand}.
-   */
-  public void runLauncher() {
-    m_launcherRunning = true;
-    m_launcherAMPRunning = false;
-  }
-
-  public void runLauncherWithPower() {
-
-    m_launcherRunning = false;
-    m_launcherAMPRunning = true;
-  }
-  /**
-   * Turns the launcher off. Can be run once and the launcher will stay running or run continuously
-   * in a {@code RunCommand}.
-   */
-  public void stopLauncher() {
-    m_launcherRunning = false;
-    m_launcherAMPRunning = false;
   }
 
   @Override
   public void periodic() { // this method will be called once per scheduler run
     // set the launcher motor powers based on whether the launcher is on or not
 
-    if (m_launcherRunning) {
-      if (m_launcherAMPRunning) {
-        m_topMotor.set(Constants.Launcher.kTopAmpPower);
-        m_bottomMotor.set(Constants.Launcher.kBottomAmpPower);
-      } else {
-        m_topMotor.set(Constants.Launcher.kTopPower);
-        m_bottomMotor.set(Constants.Launcher.kBottomPower);
-      }
-    } else {
-      m_topMotor.set(0.0);
-      m_bottomMotor.set(0.0);
-    }
-
     // Code before the one above Incase it gives an error
-
-    // if (m_launcherRunning) {
-    // m_topMotor.set(Constants.Launcher.kTopPower);
-    // m_bottomMotor.set(Constants.Launcher.kBottomPower);
-    // } else {
-    // m_topMotor.set(0.0);
-    // m_bottomMotor.set(0.0);
+    m_topMotor.set(m_topPower);
+    m_bottomMotor.set(m_bottomPower);
 
   }
 }

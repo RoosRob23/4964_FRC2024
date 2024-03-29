@@ -49,7 +49,8 @@ public final class Constants {
     // ~76.9deg angle)
     public static final ArmFeedforward kArmFeedforward =
         new ArmFeedforward(0.0, 3.0, 12.0 / kArmFreeSpeed, 0.0);
-    public static final PIDGains kArmPositionGains = new PIDGains(2.5, 0.0, 0.0);
+        // ADJUST THE P VALUE HIGHER FOR MORE AGGRESSIVE MOVEMENT
+    public static final PIDGains kArmPositionGains = new PIDGains(1.25, 0.0, 0.0);
     public static final TrapezoidProfile.Constraints kArmMotionConstraint =
         new TrapezoidProfile.Constraints(1.0, 2.0);
 

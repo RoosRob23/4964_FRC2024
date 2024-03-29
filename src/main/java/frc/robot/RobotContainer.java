@@ -133,11 +133,11 @@ public class RobotContainer {
 
     // Speaker launcher Controls
     new JoystickButton(m_PartnerDriverController, XboxController.Button.kRightBumper.value)
-        .whileTrue(new RunCommand(() -> m_launcher.runLauncher(), m_launcher));
+        .whileTrue(new RunCommand(() -> m_launcher.setPowerWithAmp(false), m_launcher));
 
     // Amp Launcher Controls
     new JoystickButton(m_PartnerDriverController, XboxController.Button.kLeftBumper.value)
-        .whileTrue(new RunCommand(() -> m_launcher.runLauncherWithPower(), m_launcher));
+        .whileTrue(new RunCommand(() -> m_launcher.setPowerWithAmp(true), m_launcher));
   }
 
   /**
